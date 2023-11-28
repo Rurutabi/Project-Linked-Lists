@@ -118,6 +118,79 @@ class LinkedList {
 
     return index;
   }
+
+  toSring() {
+    let tempString = '';
+    let curr = this.head;
+    while (curr !== null) {
+      tempString = tempString + ` (${curr.value}) ` + '---->';
+
+      curr = curr.next;
+      if (curr === null) {
+        tempString = tempString + null;
+      }
+    }
+
+    // console.log(typeof tempString);
+    return tempString;
+  }
+
+  insertAt(value, index) {
+    if (index === 0) {
+      return this._prepend(value);
+    }
+
+    this.size = 0;
+    let prev;
+    let curr = this.head;
+    let after;
+
+    while (this.size !== index) {
+      this.size = this.size + 1;
+      prev = curr;
+      curr = curr.next;
+
+      if (curr === null) {
+        console.log('Index too large');
+        this.size = 0;
+        return false;
+      }
+    }
+
+    prev.next = new Node(value);
+    after = prev.next;
+    after.next = curr;
+    this.size = 0;
+  }
+
+  removeAt(index) {
+    if (index < 0) return;
+
+    let prev;
+    let after;
+    this.size = 0;
+    let curr = this.head;
+
+    if (index === 0) {
+      after = curr.next;
+      this.head = after;
+    }
+
+    if (index > 0) {
+      while (this.size !== index) {
+        this.size = this.size + 1;
+        prev = curr;
+        curr = curr.next;
+        after = curr.next;
+        if (curr === null) {
+          return 'Reach the end';
+        }
+      }
+
+      this.size = 0;
+      prev.next = after;
+    }
+  }
 }
 
 const theLink = new LinkedList();
@@ -136,4 +209,11 @@ theLink._prepend('firstNode');
 // console.log(theLink._atIndex(2));
 // console.log(theLink._atIndex(4));
 // theLink._pop();
-console.log(theLink.findValue('b'));
+
+theLink.toSring();
+
+theLink.insertAt('fromInsert', 2);
+
+theLink.removeAt(0);
+
+console.log(theLink);
