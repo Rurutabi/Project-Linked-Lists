@@ -18,22 +18,14 @@ class LinkedList {
     }
 
     let curr = this.head;
-    // console.log(curr);
-    // console.log(curr.next);
+
     while (curr.next !== null) {
       curr = curr.next;
     }
     curr.next = new Node(val);
-
-    // console.log(curr);
-    // console.log(curr.next);
   }
 
   _prepend(val) {
-    //     1. Create a new node with the desired element.
-    // 2. Set the next pointer of the new node to the current head of the linked list.
-    // 3. Update the head pointer to the new node.
-    // console.log(this.head.next.next.next.next);
     if (this.head === null) {
       this.head = new Node(val);
       return;
@@ -83,10 +75,49 @@ class LinkedList {
       }
     }
 
-    console.log(curr);
+    return curr;
   }
 
-  // _popNode() {}
+  _pop() {
+    let curr = this.head;
+    let temp;
+
+    while (curr.next !== null) {
+      temp = curr;
+      curr = curr.next;
+    }
+
+    // this.head = null;
+    temp.next = null;
+  }
+
+  containValue(val) {
+    let curr = this.head;
+
+    while (curr.value !== val) {
+      curr = curr.next;
+      if (curr === null) {
+        return false;
+      }
+    }
+
+    return curr.value;
+  }
+
+  findValue(val) {
+    let index = 0;
+    let curr = this.head;
+
+    while (curr.value !== val) {
+      curr = curr.next;
+      index = index + 1;
+      if (curr === null) {
+        console.log('Value not found');
+      }
+    }
+
+    return index;
+  }
 }
 
 const theLink = new LinkedList();
@@ -95,8 +126,8 @@ theLink._append('b');
 theLink._append('c');
 theLink._append('d');
 
+theLink._prepend('secondNode');
 theLink._prepend('firstNode');
-
 // theLink._printSize();
 
 // console.log(theLink._printSize());
@@ -104,4 +135,5 @@ theLink._prepend('firstNode');
 
 // console.log(theLink._atIndex(2));
 // console.log(theLink._atIndex(4));
-theLink._atIndex(4);
+// theLink._pop();
+console.log(theLink.findValue('b'));
